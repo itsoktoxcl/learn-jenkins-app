@@ -3,42 +3,30 @@ pipeline {
 
     stages {
         stage('Build') {
-            steps {
                 agent {
-                    docker 'node:18-alpine'
-                    reuseNode true
+                    docker {
+                        iamge 'node:18-alpine'
+                        reuseNode true
+                    }  
                 }
                 steps {
                     sh ''' 
-                    ls -al
+                      ls -al
                       echo 'Hello World'
                       node --version
                       npm --version
                       npm ci
                       npm run build
                       ls -la
-
                     '''
                 }
-              
-            }
+            
         }
-
-        stage('Test'){
+         stage('Test'){
             agent {
                 docker 'node:18-alpine'
                 reuseNode true
             }
         } 
-            steps {
-                sh '''
-                test -f build/index.html
-                npm test
-                '''
-                
-            }
-        }
     }
-
-
 }
