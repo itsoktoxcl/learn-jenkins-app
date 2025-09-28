@@ -30,8 +30,8 @@ pipeline {
             }
             steps {
                 sh '''
-                    echo 'Running tests...'
-                    npm test // Example test command; replace with actual test command
+                    sh 'test -f build/index.html'
+                    npm test
                 '''
             }
         }
